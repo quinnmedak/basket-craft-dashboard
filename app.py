@@ -6,17 +6,21 @@ import snowflake.connector
 
 load_dotenv()
 
-st.title("Basket Craft Dashboard")
+st.title("Basket Craft Merchandising")
+
+
+def _secret(key):
+    return st.secrets.get(key) or os.getenv(key)
 
 
 @st.cache_resource
 def get_connection():
     return snowflake.connector.connect(
-        account=os.getenv("SNOWFLAKE_ACCOUNT"),
-        user=os.getenv("SNOWFLAKE_USER"),
-        password=os.getenv("SNOWFLAKE_PASSWORD"),
-        database=os.getenv("SNOWFLAKE_DATABASE"),
-        warehouse=os.getenv("SNOWFLAKE_WAREHOUSE"),
+        account=_secret("SNOWFLAKE_ACCOUNT"),
+        user=_secret("SNOWFLAKE_USER"),
+        password=_secret("SNOWFLAKE_PASSWORD"),
+        database=_secret("SNOWFLAKE_DATABASE"),
+        warehouse=_secret("SNOWFLAKE_WAREHOUSE"),
     )
 
 
